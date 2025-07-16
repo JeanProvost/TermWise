@@ -2,8 +2,9 @@
 
 @theme {
   --color-primary: #003366;
-  --color-secondary: #F8F8F8;
-  --color-tertiary: #CC9900;
+  --color-secondary: #EAEAEA;
+  --color-tertiary: #003366;
+  --color-background: #FBFBF2;
 }
 
 :root {
@@ -13,7 +14,7 @@
 
   color-scheme: light dark;
   color: #333333;
-  background-color: #FBFBF2;
+  background-color: var(--color-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

@@ -59,9 +59,9 @@ function App() {
   }, []);
 
   return (
-    <div className="w-96 min-h-[500px] bg-primary p-6">
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-tertiary">Document Summarizer</h1>
+    <div className="w-96 min-h-[500px] bg-background p-6">
+      <header className="mb-6 rounded-2xl bg-secondary p-4">
+        <h1 className="text-xl font-bold text-primary text-center">Document Summarizer</h1>
       </header>
 
       {state.status === 'loading' && <LoadingState />}

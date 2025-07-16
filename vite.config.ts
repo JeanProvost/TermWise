@@ -8,11 +8,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         popup: 'index.html'
-      },
-      output: {
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]'
       }
     }
   }

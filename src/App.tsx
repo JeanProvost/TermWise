@@ -76,14 +76,16 @@ function App() {
   }, []); */
 
   return (
-    <div className="w-96 min-h-[500px] bg-background p-6">
-      <header className="mb-6 rounded-2xl bg-secondary p-4">
+    <div className="w-96 h-[600px] bg-background p-6 flex flex-col">
+      <header className="mb-6 rounded-2xl bg-secondary p-4 flex-shrink-0">
         <h1 className="text-xl font-bold text-primary text-center">Document Summarizer</h1>
       </header>
-      {state.status === 'loading' && <LoadingState />}
-      {state.status === 'success' && state.data && <SummaryView data={state.data} />}
-      {state.status === 'no-document' && <NoDocumentState />}
-      {state.status === 'error' && <ErrorState error={state.error} />}
+      <main className="flex-grow overflow-y-auto">
+        {state.status === 'loading' && <LoadingState />}
+        {state.status === 'success' && state.data && <SummaryView data={state.data} />}
+        {state.status === 'no-document' && <NoDocumentState />}
+        {state.status === 'error' && <ErrorState error={state.error} />}
+      </main>
     </div>
   );
 }

@@ -16,4 +16,4 @@ const NoDocumentState: React.FC = () => (
 );
 
 
-export default NoDocumentState; 
+export default NoDocumentState;

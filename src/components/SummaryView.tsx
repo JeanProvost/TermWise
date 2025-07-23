@@ -13,8 +13,8 @@ interface SummaryViewProps {
 }
 
 const SummaryView: React.FC<SummaryViewProps> = ({ data }) => (
-  <div className="space-y-4">
-    <div className="rounded-2xl bg-secondary p-4">
+  <div className="space-y-4 h-full flex flex-col">
+    <div className="rounded-2xl bg-secondary p-4 flex-grow overflow-y-auto">
       <div className="flex items-center justify-between mb-2">
         <span className="text-sm font-semibold text-primary">
           {data.documentType}
@@ -29,7 +29,7 @@ const SummaryView: React.FC<SummaryViewProps> = ({ data }) => (
       </p>
     </div>
     
-    <div className="text-xs text-primary/60 text-center">
+    <div className="text-xs text-primary/60 text-center flex-shrink-0">
       Generated {new Date(data.timestamp).toLocaleTimeString()}
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoadingState from './components/LoadingState';
 import SummaryView, { type SummaryData } from './components/SummaryView';
 import NoDocumentState from './components/NoDocumentState';
@@ -10,27 +10,10 @@ interface StorageData {
   error?: string;
 }
 
-const MOCK_SUMMARY_DATA: SummaryData = {
-    summary: `This is a placeholder summary of a Terms of Service document.
-
-1.  **Acceptance of Terms**: By using our services, you agree to these terms.
-2.  **User Conduct**: You agree not to misuse the services or help anyone else to do so.
-3.  **Intellectual Property**: You acknowledge that the service and its original content are protected by copyright.
-4.  **Termination**: We may terminate or suspend your access to our service at any time, without prior notice or liability.
-5.  **Disclaimer of Warranties**: The service is provided "as is".
-6.  **Limitation of Liability**: In no event shall we be liable for any indirect, incidental, special, consequential or punitive damages.`,
-    documentType: 'Terms of Service',
-    wordCount: 128,
-    url: 'https://example.com/terms',
-    timestamp: Date.now(),
-};
-
-
 function App() {
-  const [state] = useState<StorageData>({ status: 'success', data: MOCK_SUMMARY_DATA });
-  //const [state, setState] = useState<StorageData>({ status: 'loading' });
+  const [state, setState] = useState<StorageData>({ status: 'loading' });
 
-  /* useEffect(() => {
+  useEffect(() => {
     // Get the current tab and fetch its summary data
     const fetchSummaryData = async () => {
       try {
@@ -73,12 +56,13 @@ function App() {
 
     chrome.storage.onChanged.addListener(handleStorageChange);
     return () => chrome.storage.onChanged.removeListener(handleStorageChange);
-  }, []); */
+  }, []);
 
   return (
     <div className="w-96 h-[600px] bg-background p-6 flex flex-col">
       <header className="mb-6 rounded-2xl bg-secondary p-4 flex-shrink-0">
-        <h1 className="text-xl font-bold text-primary text-center">Document Summarizer</h1>
+        <h1 className="text-xl font-bold text-primary text-center">TermWise</h1>
+        <h3 className="text-sm text-primary text-center">AI Summerizer</h3>
       </header>
       <main className="flex-grow overflow-y-auto">
         {state.status === 'loading' && <LoadingState />}

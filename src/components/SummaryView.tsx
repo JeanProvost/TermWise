@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface SummaryData {
   summary: string;
+  keyPoints: string[];
   documentType: string;
   wordCount: number;
   url: string;
@@ -27,6 +28,15 @@ const SummaryView: React.FC<SummaryViewProps> = ({ data }) => (
       <p className="text-primary/90 leading-relaxed whitespace-pre-wrap">
         {data.summary}
       </p>
+      
+      <h2 className="text-lg font-semibold text-primary mt-4 mb-3">Key Points</h2>
+      <ul className="list-disc list-inside space-y-2">
+        {data.keyPoints.map((point, index) => (
+          <li key={index} className="text-primary/90">
+            {point}
+          </li>
+        ))}
+      </ul>
     </div>
     
     <div className="text-xs text-primary/60 text-center flex-shrink-0">

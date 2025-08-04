@@ -4,18 +4,21 @@ export interface SummarizationRequest {
   text: string;
 }
 
+export interface KeyTerm {
+  term: string;
+  definition: string;
+}
+
+export interface SectionalSummary {
+  section_title: string;
+  detailed_summary: string;
+}
+
 export interface SummarizationResponse {
-  summary: string;
-  key_points: string[];
-}
-
-export interface ClassificationRequest {
-  text: string;
-}
-
-export interface ClassificationResponse {
   document_type: string;
-  confidence: number;
+  overall_summary: string;
+  key_terms: KeyTerm[];
+  sectional_summaries: SectionalSummary[];
 }
 
 // --- API Service Functions ---
@@ -41,23 +44,4 @@ export async function summarizeText(text: string): Promise<SummarizationResponse
   return await response.json() as SummarizationResponse;
 }
 
-/**
- * Sends text to the backend for classification.
- * @param text The text to be classified.
- * @returns A promise that resolves to the classification response.
- */
-export async function classifyText(text: string): Promise<ClassificationResponse> {
-  const response = await fetch(`${API_BASE_URL}/classify`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text } as ClassificationRequest),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  return await response.json() as ClassificationResponse;
-} 
+ 

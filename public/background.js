@@ -65,8 +65,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 async function handleDocumentProcessing(documentText, url, tabId) {
     const storageKey = `summary_${tabId}`;
     try {
+      console.log('TermWise: Calling API to summarize document...');
       // Summarize the document (classification is now included in the response)
       const summaryData = await summarizeText(documentText);
+      console.log('TermWise: API response received:', summaryData);
 
       // Store success state with summary
       chrome.storage.local.set({

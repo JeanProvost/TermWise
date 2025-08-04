@@ -21,34 +21,16 @@ async function summarizeText(text) {
   return await response.json();
 }
 
-/**
- * Sends text to the backend for classification.
- * @param {string} text The text to be classified.
- * @returns {Promise<object>} A promise that resolves to the classification response.
- */
-async function classifyText(text) {
-  const response = await fetch(`${API_BASE_URL}/classify`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text }),
-  });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  return await response.json();
-}
 
 
 // Listen for messages from content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'documentFound') {
+    console.log('TermWise: Document found, processing...', message.documentType);
     const tabId = sender.tab.id;
     const storageKey = `summary_${tabId}`;
-
+    
     // Store loading state
     chrome.storage.local.set({
       [storageKey]: {
@@ -83,10 +65,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 async function handleDocumentProcessing(documentText, url, tabId) {
     const storageKey = `summary_${tabId}`;
     try {
-      // First, classify the document
-      const classification = await classifyText(documentText);
-
-      // Then, summarize the document
+      // Summarize the document (classification is now included in the response)
       const summaryData = await summarizeText(documentText);
 
       // Store success state with summary
@@ -94,9 +73,10 @@ async function handleDocumentProcessing(documentText, url, tabId) {
         [storageKey]: {
           status: 'success',
           data: {
-            summary: summaryData.summary,
-            keyPoints: summaryData.key_points,
-            documentType: classification.document_type,
+            summary: summaryData.overall_summary,
+            keyTerms: summaryData.key_terms,
+            sectionalSummaries: summaryData.sectional_summaries,
+            documentType: summaryData.document_type,
             wordCount: documentText.split(/\s+/).length,
             url: url,
             timestamp: Date.now()

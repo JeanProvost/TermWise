@@ -1,7 +1,4 @@
-// The base URL where your FastAPI backend is running
 const API_BASE_URL = 'http://127.0.0.1:8000/api';
-
-// --- Interfaces for API communication ---
 
 export interface SummarizationRequest {
   text: string;

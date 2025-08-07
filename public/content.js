@@ -69,10 +69,17 @@ function init() {
   
   // Detect document type
   const documentType = detectLegalDocument();
+  console.log('TermWise: Document detection result:', documentType);
   
   if (documentType) {
     const documentText = extractDocumentText();
     const wordCount = documentText.split(/\s+/).length;
+    
+    console.log('TermWise: Sending document for processing', {
+      type: documentType,
+      wordCount: wordCount,
+      url: window.location.href
+    });
     
     // Send message to background script
     chrome.runtime.sendMessage({
@@ -82,6 +89,8 @@ function init() {
       wordCount: wordCount,
       url: window.location.href
     });
+  } else {
+    console.log('TermWise: No legal document detected on this page');
   }
 }
 

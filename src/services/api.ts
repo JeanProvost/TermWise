@@ -29,7 +29,7 @@ export interface SummarizationResponse {
  * @returns A promise that resolves to the summarization response.
  */
 export async function summarizeText(text: string): Promise<SummarizationResponse> {
-  const response = await fetch(`${API_BASE_URL}/summarize`, {
+  const response = await fetch(`${API_BASE_URL}/summarize/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
